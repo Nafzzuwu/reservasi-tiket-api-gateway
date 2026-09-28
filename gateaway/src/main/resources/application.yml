@@ -1,0 +1,39 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: GATEWAY-SERVICE
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: user-service
+              uri: http://localhost:8101
+              predicates:
+                - Path=/api/users/**
+            - id: schedule-service
+              uri: http://localhost:8102
+              predicates:
+                - Path=/api/schedules/**
+            - id: booking-service
+              uri: http://localhost:8103
+              predicates:
+                - Path=/api/bookings/**
+            - id: seat-service
+              uri: http://localhost:8104
+              predicates:
+                - Path=/api/seats/**
+            - id: payment-service
+              uri: http://localhost:8105
+              predicates:
+                - Path=/api/payments/**
+            - id: notification-service
+              uri: http://localhost:8106
+              predicates:
+                - Path=/api/notifications/**
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
